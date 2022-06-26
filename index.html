@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- 引入vue -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+</head>
+<body><!-- 057 -->
+    <!-- 關於VueComponent:
+        1.school組件本質是一個名為VueComponent的構造函數 且不是程式員定義的 是由Vue.extend生成的
+        2.我們只需要寫</school>或<school></school> Vue解析時會幫我們創建school組件的實例對象 即Vue幫我們執行的:
+        new VueComponent(option)
+        3.特別注意:每次調用Vue.extend 返回都是一個全新的VueComponent
+        4.關於this指向:
+            (1).組件配置中:
+               data函數 methods中的 函數 watch中的函數 computed中的函數 他們的this都是VueComponent實例對象
+            (2).new Vue()配置中:
+            data函數 methods中的 函數 watch中的函數 computed中的函數 他們的this都是Vue實例對象
+        5.VueComponent的實例對象 以後簡稱vc (也可稱為:怎見實例對象)
+        Vue的實例對象 以後簡稱為vm -->
+<div id="root">
+    <school></school>
+    <hello></hello>
+</div>
+
+</body>
+<script>
+    //定義school組件
+    let school = Vue.extend({
+        template:`
+        <div>
+            <h2>學校名稱:{{schoolName}}</h2>
+            <h2>學校地址:{{address}}</h2>
+            <button @click="showName">點我提示學校名</button>
+        </div>
+        `,
+        data(){
+            return {
+            schoolName:'汩汩',
+            address:'北京',
+            }    
+        },
+        methods: {
+            showName(){
+                alert(this.name)
+            }
+        },     
+    })
+    // 定義hello組件
+   let hello = Vue.extend({
+    template:`<h2>{{msg}}</h2>`,
+    data(){
+        return {
+            msg :'你好阿!'
+        }
+    }
+   })  
+    //創建vm
+    let vm = new Vue({
+
+        el:'#root',
+        components:{hello,school}
+    })
+    
+</script>
+</html>
+</body>
+</html>
